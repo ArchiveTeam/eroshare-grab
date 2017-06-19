@@ -173,7 +173,7 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
   end
 
   if status_code == 403 and
-     (string.match(url["url"], "_lowres%.mp4$") or string.match(url["url"], "_orig%.mp4$")) then
+     (string.match(url["url"], "_lowres%.mp4$") or string.match(url["url"], "_orig%.[A-Za-z0-9]+$")) then
     return wget.actions.EXIT
   end
   
