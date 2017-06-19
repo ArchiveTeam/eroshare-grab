@@ -48,7 +48,7 @@ allowed = function(url, parenturl)
   end
 
   if string.match(url, "^https?://[^/]*eroshare%.com") then
-    if item_type == "medium" then
+    if item_type == "upload" then
       for id in string.gmatch(url, "([0-9a-z]+)") do
         if ids[id] == true then
           return true
@@ -171,6 +171,11 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
     io.stdout:write("ABORTING...\n")
     return wget.actions.ABORT
   end
+
+  if status_code == 403 and
+     (string.match(url["url"], "_lowres%.mp4$") or string.match(url["url"], "_orig%.mp4$")) then
+    return wget.actions.EXIT
+  end
   
   if status_code >= 500 or
     (status_code >= 400 and status_code ~= 404) or
@@ -179,7 +184,7 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
     io.stdout:flush()
     os.execute("sleep 1")
     tries = tries + 1
-    if tries >= 20 then
+    if tries >= 5 then
       io.stdout:write("\nI give up...\n")
       io.stdout:flush()
       tries = 0

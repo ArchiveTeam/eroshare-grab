@@ -58,7 +58,7 @@ if not WGET_LUA:
 #
 # Update this each time you make a non-cosmetic change.
 # It will be added to the WARC files and reported to the tracker.
-VERSION = "20170616.01"
+VERSION = "20170619.01"
 USER_AGENT = 'ArchiveTeam'
 TRACKER_ID = 'eroshare'
 TRACKER_HOST = 'tracker.archiveteam.org'
@@ -197,7 +197,7 @@ class WgetArgs(object):
         if item_type == 'user':
             wget_args.extend(['--warc-header', 'eroshare-user: {item_value}'.format(item_value=item_value)])
             wget_args.append('https://www.imzy.com/api/accounts/profiles/{item_value}'.format(item_value=item_value))
-        elif item_type == 'medium':
+        elif item_type == 'upload':
             wget_args.extend(['--warc-header', 'eroshare-medium: {item_value}'.format(item_value=item_value)])
             wget_args.append('https://eroshare.com/i/{item_value}'.format(item_value=item_value))
             wget_args.append('https://eroshare.com/{item_value}'.format(item_value=item_value))
